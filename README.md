@@ -26,6 +26,8 @@ Display a live preview of the form with functional fields.
 ![Screenshot 2025-02-22 232108](https://github.com/user-attachments/assets/b572dae6-f913-4687-851f-6cd827b51b23)
 
 ![image](https://github.com/user-attachments/assets/a8038a57-4f12-413f-b308-7b36c77c75af)
+![image](https://github.com/user-attachments/assets/292a301a-6935-45a2-ae24-1f44d2dd316c)
+
 ![image](https://github.com/user-attachments/assets/196006b9-ae79-46b5-a703-06960003ceb3)
 
 
