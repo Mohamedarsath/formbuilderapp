@@ -1,0 +1,25 @@
+<div>
+    <form #fieldgroupForm="ngForm">
+        <small>Note:Enter Group Name to enable Save button</small>
+        <label for="">GroupName*</label>
+        <input type="text" class="form-control" name="name" id="" placeholder="Group Name" [(ngModel)]="name"  required #nameField="ngModel">
+        <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="error-message">
+            Name is required.
+          </div>
+          <label for="">Description</label>
+        <input type="text" class="form-control" name="description" id="" placeholder="Description" [(ngModel)]="description">  
+        <button type="submit" class="btn btn-primary w-100 mb-2" [disabled]="fieldgroupForm.invalid" (click)="addGroup()">Save Group</button>
+        
+    </form>
+    
+  
+     <ul class="list-group">
+      <li *ngFor="let group of formBuilderService.fieldGroups; let i = index" 
+          class="list-group-item d-flex justify-content-between align-items-center"
+          [class.active]="group === formBuilderService.selectedGroup" 
+          (click)="selectGroup(group)">
+        {{ group.name }}
+        <button class="btn btn-sm btn-danger" (click)="deleteGroup(i); $event.stopPropagation();"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+      </li>
+    </ul>
+  </div>

@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+.container-fluid { height: 100vh; }
+@media (max-width: 768px) {
+  .container-fluid { flex-direction: column; }
+  .border-end, .border-start { border: none !important; }
+  .position-fixed { position: static !important; width: 100% !important; }
+}

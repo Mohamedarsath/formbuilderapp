@@ -1,0 +1,84 @@
+<div *ngIf="formBuilderService.selectedGroup">
+    <div class="card" *ngIf="!iseditbox">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-10">
+                <h5 class="card-title">{{ formBuilderService.selectedGroup.name }}</h5>
+            </div>
+            <div class="col-md-2">
+                <div style="float: right;">
+                    <i class="fa fa-pencil" aria-hidden="true" (click)="openeditbox()"></i>
+                  </div>  
+            </div>
+          </div>
+                
+              
+           
+
+        </div>
+        <div class="card-body">
+        <small>{{formBuilderService.selectedGroup.description}}</small>
+        </div>
+
+    </div>
+   
+    <form #fieldgroupeditForm="ngForm" *ngIf="iseditbox">
+        <input type="text" class="form-control" name="name" id="" placeholder="Group Name" [(ngModel)]="name">
+        <input type="text" class="form-control" name="description" id="" placeholder="Description" [(ngModel)]="description">  
+        
+        <button class="btn btn-primary mb-2" type="button" (click)="updateGroup()">Update</button> <button class="btn btn-danger mb-2" type="button" (click)="cancel()">Cancel</button>
+    </form>
+
+
+    <div cdkDropList [cdkDropListData]="formBuilderService.selectedGroup.elements" (cdkDropListDropped)="drop($event)" class="p-2 border rounded">
+        
+<h4>Upload a elements configuration file </h4>
+        <input type="file" (change)="onFileSelected($event)" accept=".json" />
+        <button class="btn btn-primary mb-2" (click)="uploadFile()" [disabled]="!selectedFile">Upload</button>
+
+
+        <button class="btn btn-primary mb-2 float-end"  type="button" (click)="exportfields()">export</button> 
+      
+
+        <form >
+            <div *ngFor="let element of formBuilderService.selectedGroup.elements;let i = index" cdkDrag class="p-2 border rounded d-flex justify-content-between">
+                <div class="form-group w-100">
+              <label class="form-label">{{ element.name }}</label>           <button class="btn btn-sm btn-light float-end" (click)="selectElement(element)"> <i class="fa fa-pencil" aria-hidden="true" ></i></button>
+              <button class="btn btn-sm btn-danger float-end" (click)="deleteElement(i)"><i class="fa fa-trash" aria-hidden="true" ></i></button>
+              <input *ngIf="element.type!=='textarea' && element.type!== 'radio'&& element.type!== 'checkbox'&& element.type!== 'select'&& element.type!== 'file'" [type]="element.type" [placeholder]="element.placeholder" class="form-control" [required]="element.required"/> 
+           
+              <div *ngIf="element.type =='radio'">
+              <div *ngFor="let data of element.options">
+                
+        <input  *ngIf="element.type=='radio'"  [type]="element.type" [name]="element.name" id=""> <label *ngIf="element.type=='radio'">{{data}}</label>
+    </div>     
+    </div>
+    <div *ngIf="element.type == 'checkbox'">
+    <div  *ngFor="let data of element.options">
+                
+        <input  *ngIf="element.type=='checkbox'"  [type]="element.type" [name]="element.name" id=""> <label *ngIf="element.type=='checkbox'">{{data}}</label>
+    </div>  
+        </div>
+        <textarea *ngIf="element.type=='textarea'" [placeholder]="element.placeholder" class="form-control" [required]="element.required"></textarea>
+
+
+        <select *ngIf="element.type == 'select'" class="form-control" [required]="element.required">
+            <option *ngFor="let option of element.options"  [value]="option" >{{ option }}</option>
+          </select>
+      
+          <!-- File Upload -->
+          <input *ngIf="element.type == 'file'" type="file" class="form-control" [required]="element.required" />
+      
+            </div>
+            </div>
+          </form>
+      <!-- <div *ngFor="let element of formBuilderService.selectedGroup.elements; let i = index" cdkDrag class="p-2 border rounded d-flex justify-content-between">
+        <span>{{ element.name }}</span>
+        <div>
+          <button class="btn btn-sm btn-light" (click)="selectElement(element)"> <i class="fa fa-pencil" aria-hidden="true" ></i></button>
+          <button class="btn btn-sm btn-danger" (click)="deleteElement(i)"><i class="fa fa-trash" aria-hidden="true" ></i></button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  
